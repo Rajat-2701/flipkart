@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>reCaptcha validation demo</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </head>
+  <body>
+    <div class="form_container">
+      <form action="#" id="my_captcha_form">
+        <div class="g-recaptcha" data-sitekey="6Lf0sv0hAAAAAD31YHpoYcZn-h6x4lnkpq8K4DTj"></div>
+        <p>
+          <button type="submit">Submit</button>
+        </p>
+      </form>
+    </div>
+    <script>
+      document.getElementById("my_captcha_form").addEventListener("submit", function (evt) {
+        var response = grecaptcha.getResponse();
+        if (response.length == 0) {
+          //reCaptcha not verified
+          alert("please verify you are humann!");
+          evt.preventDefault();
+          return false;
+        }
+        //captcha verified
+        //do the rest of your validations here
+      });
+    </script>
+  </body>
+</html>
