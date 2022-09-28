@@ -7,17 +7,21 @@ body {
   /* background-size: cover; */
   /* background-repeat: no-repeat; */
   /* height: 100vh; */
-  background: #000;
+  background: #fff;
 }
 
 /* .contact-wrap {
   z-index: 1;
 } */
+textarea {
+  resize: none !important;
+}
 .contact-wrap {
   margin: auto;
+  margin-top: 5rem !important;
 }
 .contact-form label {
-  color: #fff;
+  color: #000;
   margin-bottom: 1rem;
   font-size: 20px;
   text-transform: uppercase;
@@ -30,6 +34,7 @@ body {
   text-align: center;
   font-size: 22px;
   cursor: pointer;
+  border: 3px solid #fb2900;
 }
 .category-dropdown .category-name {
   padding: 100px !important;

@@ -16,6 +16,10 @@ const Admin = () => {
     price: "",
     image: "",
   });
+  function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = element.scrollHeight + "px";
+  }
 
   // function to get categories from backend:
   useEffect(() => {
@@ -29,16 +33,32 @@ const Admin = () => {
   }, []);
 
   //   function for uploading multiple images at a time :
-  const multipleFiles = (file) => {
-    // setImages(file[0]);
-    // const selectedFiles = [];
-    // const targetedFiles = e.target.files;
-    // const targetFilesObject = [...targetedFiles];
-    // targetFilesObject.map((file) => {
-    //   return selectedFiles.push(URL.createObjectURL(file));
-    // });
-    setFormData({ ...formData, image: file[0].name });
-  };
+  // const multipleFiles = (files) => {
+  //   // setImages(file[0]);
+  //   // const selectedFiles = [];
+  //   // const targetedFiles = e.target.files;
+  //   // const targetFilesObject = [...targetedFiles];
+  //   // targetFilesObject.map((file) => {
+  //   //   return selectedFiles.push(URL.createObjectURL(file));
+  //   // });
+  //   const frmData = new FormData();
+  //   for (let i = 0; i < files.length; i++) {
+  //     console.log("inside for");
+  //     frmData.append(files[i].name, files[i]);
+  //   }
+  //   console.log("frmData", frmData);
+  //   setFormData({ ...formData, image: frmData });
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("formData", formData);
+  //   fetch("http://127.0.0.1:8000/api/addProducts", {
+  //     method: "POST",
+  //     body: JSON.stringify(formData),
+  //     headers: { "Content-Type": "multipart/form-data" },
+  //   }).then((response) => console.log(response));
+  // };
 
   return (
     <section className="contact-wrap">
@@ -47,12 +67,17 @@ const Admin = () => {
         action="http://127.0.0.1:8000/api/addProducts"
         method="post"
         // onSubmit={handleSubmit}
-        className="contact-form"
+        className="contact-form shadow-2xl p-5 rounded-lg bg-white"
         encType="multipart/form-data"
       >
-        <hr />
-        <h2 className="text-white text-uppercase">Add New Product</h2>
-        <hr />
+        {/* <hr className="w-[70%]" /> */}
+        <br />
+        <h2 className="text-white font-semibold border-2 border-black solid p-2 rounded-xl bg-black text-2xl text-center text-uppercase">
+          Add New Product
+        </h2>{" "}
+        <br />
+        {/* <hr className="w-[70%] ml-auto" /> */}
+        <br />
         <div className="row">
           <div className="col-lg-6 col-md-6 col-sm-12">
             <label htmlFor="title">Title</label>
@@ -68,10 +93,11 @@ const Admin = () => {
           </div>
           <div className="col-lg-6 col-md-6 col-sm-12">
             <label htmlFor="description">Description</label>
-            <div className="input-block">
-              <input
-                className="form-control"
-                type="text"
+            <div className="input-block" oninput="auto_grow(this)">
+              <textarea
+                className="form-control p-2 textarea overflow-hidden"
+                // type="textarea"
+                oninput="auto_grow(this)"
                 name="description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -84,7 +110,7 @@ const Admin = () => {
             <div className="input-blocks">
               <select
                 name="category_id"
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
                 className="category-dropdown"
               >
                 <option value="Select Categoyr">Select Category</option>
@@ -108,26 +134,6 @@ const Admin = () => {
                 name="rating"
                 value={formData.rating}
                 onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
-              />
-            </div>
-          </div>
-          {/* Images */}
-          <div className="col-lg-6 col-md-6 col-sm-12">
-            <label htmlFor="images">Images</label>
-            <div className="input-block">
-              <input
-                multiple
-                className="form-control mt-1"
-                style={{
-                  padding: "10px 20px 20px 20px",
-                  textAlign: "center",
-                  display: "block",
-                  textTransform: "uppercase",
-                  fontWeight: "normal",
-                }}
-                type="file"
-                name="image"
-                onChange={(e) => multipleFiles(e.target.files)}
               />
             </div>
           </div>
